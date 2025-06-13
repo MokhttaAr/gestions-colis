@@ -56,70 +56,133 @@ function PackageHistory() {
       {packages.length === 0 ? (
         <p className="text-center text-secondary">Aucun colis enregistré</p>
       ) : (
-        <div className="table-responsive">
-          <table className="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th className="text-start">Résident</th>
-                <th className="text-start">Unité</th>
-                <th className="text-start">Date d'arrivée</th>
-                <th className="text-start">Date de réception</th>
-                <th className="text-start">Photo du colis</th>
-                <th className="text-start">Preuve de livraison</th>
-                <th className="text-start">Statut</th>
-              </tr>
-            </thead>
-            <tbody>
-              {packages.map((pkg) => (
-                <tr key={pkg.id}>
-                  <td>{pkg.name}</td>
-                  <td>{pkg.unit}</td>
-                  <td>{pkg.date}</td>
-                  <td>
-                    {pkg.received ? (
-                      <span>
-                        {pkg.deliveryDate} <small className="text-muted">{pkg.deliveryTime}</small>
-                      </span>
-                    ) : (
-                      "Non récupéré"
-                    )}
-                  </td>
-                  <td>
-                    {pkg.photoURL ? (
+        <>
+          {/* Vue pour grand écran - tableau classique */}
+          <div className="d-none d-lg-block">
+            <div className="table-responsive">
+              <table className="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>Résident</th>
+                    <th>Unité</th>
+                    <th>Date d'arrivée</th>
+                    <th>Date de réception</th>
+                    <th>Photo</th>
+                    <th>Preuve</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Le tableau existant sans changement */}
+                  {packages.map((pkg) => (
+                    <tr key={pkg.id}>
+                      <td>{pkg.name}</td>
+                      <td>{pkg.unit}</td>
+                      <td>{pkg.date}</td>
+                      <td>
+                        {pkg.received ? (
+                          <span>
+                            {pkg.deliveryDate} <small className="text-muted">{pkg.deliveryTime}</small>
+                          </span>
+                        ) : (
+                          "Non récupéré"
+                        )}
+                      </td>
+                      <td>
+                        {pkg.photoURL ? (
+                          <button
+                            onClick={() => handleShowImage(pkg.photoURL)}
+                            className="btn btn-sm btn-outline-primary"
+                          >
+                            Voir
+                          </button>
+                        ) : (
+                          "Aucune"
+                        )}
+                      </td>
+                      <td>
+                        {pkg.deliveryPhotoURL ? (
+                          <button
+                            onClick={() => handleShowImage(pkg.deliveryPhotoURL)}
+                            className="btn btn-sm btn-outline-success"
+                          >
+                            Voir
+                          </button>
+                        ) : (
+                          "Aucune"
+                        )}
+                      </td>
+                      <td>
+                        <span className={`badge ${pkg.received ? 'bg-success' : 'bg-warning'}`}>
+                          {pkg.received ? 'Recupere' : 'En attente'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Vue pour mobile - cartes */}
+          <div className="d-block d-lg-none">
+            {packages.map((pkg) => (
+              <div key={pkg.id} className="card mb-3">
+                <div className="card-header d-flex justify-content-between align-items-center">
+                  <h5 className="mb-0">{pkg.name}</h5>
+                  <span className={`badge ${pkg.received ? 'bg-success' : 'bg-warning'}`}>
+                    {pkg.received ? 'Récupéré' : 'En attente'}
+                  </span>
+                </div>
+
+                <div className="card-body">
+                  <div className="row mb-2">
+                    <div className="col-5 text-secondary">Unité:</div>
+                    <div className="col-7 fw-bold">{pkg.unit}</div>
+                  </div>
+
+                  <div className="row mb-2">
+                    <div className="col-5 text-secondary">Date d'arrivée:</div>
+                    <div className="col-7">{pkg.date}</div>
+                  </div>
+
+                  <div className="row mb-2">
+                    <div className="col-5 text-secondary">Date de réception:</div>
+                    <div className="col-7">
+                      {pkg.received ? (
+                        <span>
+                          {pkg.deliveryDate} <small className="text-muted">{pkg.deliveryTime}</small>
+                        </span>
+                      ) : (
+                        "Non récupéré"
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-3 d-flex gap-2">
+                    {pkg.photoURL && (
                       <button
                         onClick={() => handleShowImage(pkg.photoURL)}
                         className="btn btn-sm btn-outline-primary"
                       >
                         Voir la photo
                       </button>
-                    ) : (
-                      "Aucune"
                     )}
-                  </td>
-                  <td>
-                    {pkg.deliveryPhotoURL ? (
+
+                    {pkg.deliveryPhotoURL && (
                       <button
                         onClick={() => handleShowImage(pkg.deliveryPhotoURL)}
                         className="btn btn-sm btn-outline-success"
                       >
                         Voir la preuve
                       </button>
-                    ) : (
-                      "Aucune"
                     )}
-                  </td>
-                  <td>
-                    <span
-                      className={`badge ${pkg.received ? 'bg-success' : 'bg-warning'}`}
-                    >
-                      {pkg.received ? 'Récupéré' : 'En attente'}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* Modal pour afficher l'image */}

@@ -112,10 +112,12 @@ function AddPackage() {
   };
 
   return (
-    <div className="col-md-6 mx-auto bg-white rounded shadow p-4">
+    <div className="bg-white rounded shadow p-3 p-md-4">
       <h2 className="h4 fw-bold mb-4 text-center">Ajouter un nouveau colis</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: "600px" }}>
+        {/* ...reste du formulaire inchangé... */}
+
         <div className="mb-3">
           <label className="form-label fw-bold" htmlFor="name">
             Nom du destinataire
@@ -167,10 +169,11 @@ function AddPackage() {
             accept="image/*"
             onChange={handlePhotoChange}
             className="form-control"
+            capture="environment"
           />
           {preview && (
-            <div className="mt-2">
-              <img src={preview} alt="Aperçu" className="img-fluid" style={{ maxHeight: '200px' }} />
+            <div className="mt-2 text-center">
+              <img src={preview} alt="Aperçu" className="img-fluid rounded" style={{ maxHeight: '200px' }} />
             </div>
           )}
         </div>

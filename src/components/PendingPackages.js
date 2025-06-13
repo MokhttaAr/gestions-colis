@@ -188,32 +188,36 @@ function PendingPackages() {
       {packages.length === 0 ? (
         <p className="text-center text-secondary">Aucun colis en attente</p>
       ) : (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div className="row row-cols-1 g-3">
           {packages.map((pkg) => (
             <div key={pkg.id} className="col">
               <div className="card h-100">
-                {pkg.photoURL && (
-                  <div style={{ height: "200px" }} className="overflow-hidden">
-                    <img
-                      src={pkg.photoURL}
-                      alt="Colis"
-                      className="card-img-top w-100 h-100"
-                      style={{ objectFit: "cover" }}
-                    />
+                <div className="row g-0">
+                  {pkg.photoURL && (
+                    <div className="col-4 col-md-3" style={{ minHeight: "140px" }}>
+                      <img
+                        src={pkg.photoURL}
+                        alt="Colis"
+                        className="w-100 h-100"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
+
+                  <div className={pkg.photoURL ? "col-8 col-md-9" : "col-12"}>
+                    <div className="card-body">
+                      <h3 className="fw-bold h5">{pkg.name}</h3>
+                      <p className="text-secondary mb-1">Unité: {pkg.unit}</p>
+                      <p className="text-secondary mb-2">Date: {pkg.date}</p>
+
+                      <button
+                        onClick={() => openConfirmationModal(pkg)}
+                        className="btn btn-success w-100 mt-1"
+                      >
+                        Confirmer la réception
+                      </button>
+                    </div>
                   </div>
-                )}
-
-                <div className="card-body">
-                  <h3 className="fw-bold h5">{pkg.name}</h3>
-                  <p className="text-secondary">Unité: {pkg.unit}</p>
-                  <p className="text-secondary">Date: {pkg.date}</p>
-
-                  <button
-                    onClick={() => openConfirmationModal(pkg)}
-                    className="btn btn-success w-100 mt-3"
-                  >
-                    Confirmer la réception
-                  </button>
                 </div>
               </div>
             </div>
