@@ -169,7 +169,6 @@ function AddPackage() {
             accept="image/*"
             onChange={handlePhotoChange}
             className="form-control"
-            capture="environment"
           />
           {preview && (
             <div className="mt-2 text-center">
