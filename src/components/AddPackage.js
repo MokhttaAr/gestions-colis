@@ -148,7 +148,7 @@ function AddPackage() {
 
         <div className="mb-3">
           <label className="form-label fw-bold" htmlFor="date">
-            Date de réception
+            Date d'arrivée du colis
           </label>
           <input
             id="date"

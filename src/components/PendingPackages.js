@@ -164,7 +164,7 @@ function PendingPackages() {
       // Rafraîchir la liste
       fetchPendingPackages();
       setShowModal(false);
-      alert('Colis marqué comme récupéré avec succès!');
+      alert('Colis remis avec succès!');
     } catch (error) {
       console.error('Erreur lors de la mise à jour:', error);
       alert(`Erreur: ${error.message}`);
@@ -210,11 +210,12 @@ function PendingPackages() {
                       <p className="text-secondary mb-1">Unité: {pkg.unit}</p>
                       <p className="text-secondary mb-2">Date: {pkg.date}</p>
 
+                      {/* Modifier le bouton de confirmation */}
                       <button
                         onClick={() => openConfirmationModal(pkg)}
                         className="btn btn-success w-100 mt-1"
                       >
-                        Confirmer la réception
+                        Remettre le colis
                       </button>
                     </div>
                   </div>
@@ -228,7 +229,7 @@ function PendingPackages() {
       {/* Modal pour confirmation avec photo */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Confirmer la réception du colis</Modal.Title>
+          <Modal.Title>Confirmer la remise du colis</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedPackage && (
@@ -252,6 +253,7 @@ function PendingPackages() {
                 />
 
                 {!deliveryPhoto && (
+                  /* Modifier le message d'alerte */
                   <div className="alert alert-warning" role="alert">
                     Veuillez ajouter une photo du colis remis au destinataire
                   </div>
@@ -280,7 +282,8 @@ function PendingPackages() {
             onClick={confirmDelivery}
             disabled={isSubmitting || !deliveryPhoto}
           >
-            {isSubmitting ? 'Traitement...' : 'Confirmer la réception'}
+            {/* Modifier le texte du bouton dans la modal */}
+            {isSubmitting ? 'Traitement...' : 'Confirmer la remise'}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -66,7 +66,7 @@ function PackageHistory() {
                     <th>Résident</th>
                     <th>Unité</th>
                     <th>Date d'arrivée</th>
-                    <th>Date de réception</th>
+                    <th>Date de remise</th>
                     <th>Photo</th>
                     <th>Preuve</th>
                     <th>Statut</th>
@@ -114,7 +114,7 @@ function PackageHistory() {
                       </td>
                       <td>
                         <span className={`badge ${pkg.received ? 'bg-success' : 'bg-warning'}`}>
-                          {pkg.received ? 'Recupere' : 'En attente'}
+                          {pkg.received ? 'Remis' : 'En attente'}
                         </span>
                       </td>
                     </tr>
@@ -147,14 +147,14 @@ function PackageHistory() {
                   </div>
 
                   <div className="row mb-2">
-                    <div className="col-5 text-secondary">Date de réception:</div>
+                    <div className="col-5 text-secondary">Date de remise:</div>
                     <div className="col-7">
                       {pkg.received ? (
                         <span>
                           {pkg.deliveryDate} <small className="text-muted">{pkg.deliveryTime}</small>
                         </span>
                       ) : (
-                        "Non récupéré"
+                        "Non remis"
                       )}
                     </div>
                   </div>
